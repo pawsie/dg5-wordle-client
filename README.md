@@ -1,10 +1,12 @@
-# Dg5WordleClient
+# Dg5-wordle Client hello
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.1.
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+`ng serve --open` to automatically open the browser to `http://localhost:4200/`.
 
 ## Code scaffolding
 
@@ -25,3 +27,6 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Initial commit
+Initial set up consisted of `ng new dg5-wordle-client`
