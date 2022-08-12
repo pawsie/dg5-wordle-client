@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Letter } from './letterModel';
 
 @Component({
   selector: 'app-letter',
@@ -7,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LetterComponent implements OnInit {
 
+  @Input() letter !: Letter;
+  
   constructor() { }
 
   ngOnInit(): void {

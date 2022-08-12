@@ -1,9 +1,7 @@
 <div class="app-word">
 
-    <app-letter></app-letter>
-    <app-letter></app-letter>
-    <app-letter></app-letter>
-    <app-letter></app-letter>
-    <app-letter></app-letter>
+    <span *ngFor="let letter of word.letters">
+        <app-letter [letter]="letter"></app-letter>
+    </span>
 
  </div>
