@@ -5,10 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
+import { LetterComponent } from './letter/letter.component';
+import { WordComponent } from './word/word.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LetterComponent,
+    WordComponent
   ],
   imports: [
     BrowserModule,
