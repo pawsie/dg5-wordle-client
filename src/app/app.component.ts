@@ -30,11 +30,16 @@ export class AppComponent {
     this.words[0].letters[2].value = 'C';
     this.words[0].letters[3].value = 'D';
     this.words[0].letters[4].value = 'E';
-    // this.words[1].letters[0].value = 'A';
-    // this.words[2].letters[1].value = 'B';
-    // this.words[3].letters[2].value = 'C';
-    // this.words[4].letters[3].value = 'D';
-    // this.words[5].letters[4].value = 'E';
+    this.words[1].letters[0].value = 'A';
+    this.words[1].letters[1].value = 'B';
+    this.words[1].letters[2].value = 'C';
+    this.words[1].letters[3].value = 'D';
+    this.words[1].letters[4].value = 'E';
+    this.words[1].letters[0].value = 'A';
+    this.words[2].letters[1].value = 'B';
+    this.words[3].letters[2].value = 'C';
+    this.words[4].letters[3].value = 'D';
+    this.words[5].letters[4].value = 'E';
 
   }
 
