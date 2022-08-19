@@ -1,4 +1,4 @@
-<div class="app-word">
+<div class="app-word" [@shake]="shakeTrigger" [@flipLetters]="flipTrigger">
 
     <span *ngFor="let letter of word.letters">
         <app-letter [letter]="letter"></app-letter>

@@ -10,3 +10,5 @@ export class Letter {
   state = LetterStates.BeforeCheck;
     toString: any;
 }
+
+Letter.prototype.toString = function letterToString() {return `${this.value}`;};

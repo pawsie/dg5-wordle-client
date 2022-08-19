@@ -1,7 +1,8 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, QueryList, ViewChildren } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { GET_ALL_WORDS } from './graphql/graphql.queries';
 import { LetterStates } from './letter/letterModel';
+import { WordComponent } from './word/word.component';
 import { Word } from './word/wordModel';
 
 @Component({
@@ -32,9 +33,10 @@ export class AppComponent {
       
     this.resetWords();
 
-    this.hardCodeSomeWords();
   }
 
+  @ViewChildren('appword') wordComponents !: QueryList<WordComponent>;
+  
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) { 
 
@@ -55,28 +57,43 @@ export class AppComponent {
     if ((this.letterIndex == this.letterCount) && 
       (this.wordIndex < this.wordCount) &&
       (event.key == "Enter")){
-      this.wordIndex += 1;
-      this.letterIndex = 0;
+
+        if (this.isWordInDictionary()) this.goToNextWord();
+        else this.stayAtCurrentWord();
    }
 
   }
 
-  hardCodeSomeWords(){
-    this.words[5].letters[0].value = 'A';
-    this.words[5].letters[1].value = 'B';
-    this.words[5].letters[2].value = 'C';
-    this.words[5].letters[3].value = 'D';
-    this.words[5].letters[4].value = 'E';
-
-    this.words[5].letters[0].state = LetterStates.BeforeCheck;
-    this.words[5].letters[1].state = LetterStates.RightLetterRightPlace;
-    this.words[5].letters[2].state = LetterStates.RightLetterWrongPlace;
-    this.words[5].letters[3].state = LetterStates.WrongLetter;
+  isWordInDictionary(): boolean{
+    var word = this.getCurrentWord();
+    return this.allWords.includes(this.getCurrentWord().toLowerCase());    
   }
+
+  goToNextWord(){
+    this.wordComponents.toArray()[this.wordIndex].flip();
+
+    this.words[this.wordIndex].letters[0].state = LetterStates.RightLetterRightPlace;
+    this.words[this.wordIndex].letters[1].state = LetterStates.RightLetterWrongPlace;
+    this.words[this.wordIndex].letters[2].state = LetterStates.WrongLetter;
+    this.words[this.wordIndex].letters[3].state = LetterStates.RightLetterRightPlace;
+    this.words[this.wordIndex].letters[4].state = LetterStates.RightLetterWrongPlace;
+
+    this.wordIndex += 1;
+    this.letterIndex = 0;
+  }
+
+  stayAtCurrentWord(){
+    this.wordComponents.toArray()[this.wordIndex].shake();
+  }
+
 
   resetWords(){
     for (var i = 0; i < this.wordCount; i++){
       this.words[i] = new Word();
     }
+  }
+
+  getCurrentWord(){
+    return this.words[this.wordIndex].letters.join('');    
   }
 }

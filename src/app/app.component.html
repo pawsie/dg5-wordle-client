@@ -1,7 +1,7 @@
 <h1>My Wordle</h1>
 
 <div *ngFor="let word of words">
-  <app-word [word]="word"></app-word>
+  <app-word #appword [word]="word"></app-word>
 </div>
 
 <br>

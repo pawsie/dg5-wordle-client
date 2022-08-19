@@ -1,1 +1,1 @@
-<span class="app-letter" [ngStyle]= "getStyle()">{{letter.value}}</span>
+<span class="app-letter" [ngStyle]= "getStyle()" [@flip]="letter.state">{{letter.value}}</span>
