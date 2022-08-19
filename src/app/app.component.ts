@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { GET_ALL_WORDS } from './graphql/graphql.queries';
+import { LetterStates } from './letter/letterModel';
 import { Word } from './word/wordModel';
 
 @Component({
@@ -41,6 +42,11 @@ export class AppComponent {
     this.words[4].letters[3].value = 'D';
     this.words[5].letters[4].value = 'E';
 
+    this.words[0].letters[0].state = LetterStates.BeforeCheck;
+    this.words[0].letters[1].state = LetterStates.RightLetterRightPlace;
+    this.words[0].letters[2].state = LetterStates.RightLetterWrongPlace;
+    this.words[0].letters[3].state = LetterStates.WrongLetter;
+    // this.words[0].letters[4].state = LetterStates.BeforeCheck;
   }
 
   resetWords(){
