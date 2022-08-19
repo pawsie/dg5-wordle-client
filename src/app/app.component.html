@@ -6,6 +6,13 @@
 
 <br>
 
+<button (click)="resetGame()">Reset</button><br><br>
+
+<span>Word index: {{wordIndex}}</span><br>
+<span>Letter index: {{letterIndex}}</span><br>
+
+<br>
+
 <span *ngFor="let word of allWords">{{word}} </span>
 
 <h1>end</h1>

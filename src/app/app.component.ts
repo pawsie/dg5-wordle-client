@@ -17,10 +17,8 @@ export class AppComponent {
   letterCount = 5;
   blank='';
   title = 'dg5-wordle-client';
-
   allWords!: string[];
   words: Word[] = new Array(this.wordCount);
-
   key: any;
   
   constructor(private apollo: Apollo) {
@@ -86,14 +84,23 @@ export class AppComponent {
     this.wordComponents.toArray()[this.wordIndex].shake();
   }
 
+  getCurrentWord(){
+    return this.words[this.wordIndex].letters.join('');
+  }
+
+  resetGame(){
+    this.resetIndices();
+    this.resetWords();
+  }
+
+  resetIndices(){
+    this.wordIndex = 0;
+    this.letterIndex = 0;
+  }
 
   resetWords(){
     for (var i = 0; i < this.wordCount; i++){
       this.words[i] = new Word();
     }
-  }
-
-  getCurrentWord(){
-    return this.words[this.wordIndex].letters.join('');    
   }
 }
