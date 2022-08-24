@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LetterComponent } from './letter/letter.component';
 import { WordComponent } from './word/word.component';
 import { GameService } from './game.service';
+import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,12 @@ import { GameService } from './game.service';
     BrowserAnimationsModule,
     AppRoutingModule,
     GraphQLModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-center',
+      preventDuplicates: true,
+    }),
+    ToastContainerModule,
   ],
   providers: [GameService],
   bootstrap: [AppComponent]

@@ -1,5 +1,6 @@
-import { Component, HostListener, QueryList, ViewChildren } from '@angular/core';
+import { Component, HostListener, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Apollo } from 'apollo-angular';
+import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { GameService } from './game.service';
 import { GET_ALL_WORDS } from './graphql/graphql.queries';
 import { WordComponent } from './word/word.component';
@@ -10,7 +11,7 @@ import { Word } from './word/wordModel';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   wordIndex = 0;
   letterIndex = 0;
   wordCount = 6;
@@ -24,7 +25,8 @@ export class AppComponent {
   answer!: string;
 
   constructor(private apollo: Apollo,
-              game: GameService) {
+              game: GameService,
+              private toastrService: ToastrService) {
 
     this.apollo.watchQuery({ query: GET_ALL_WORDS }).valueChanges
       .subscribe(({ data, error }: any) => {
@@ -37,10 +39,20 @@ export class AppComponent {
 
   }
 
+  ngOnInit() {
+    this.toastrService.overlayContainer = this.toastContainer;
+  }
+
+  showSuccess() {
+    this.toastrService.success('Hello world!', 'Toastr fun!');
+  }
+
   @ViewChildren('appword') wordComponents !: QueryList<WordComponent>;
+  @ViewChild(ToastContainerDirective, { static: true })
+  toastContainer!: ToastContainerDirective;
   
   @HostListener('document:keydown', ['$event'])
-  async handleKeyboardEvent(event: KeyboardEvent) { 
+  async handleKeyboardEvent(event: KeyboardEvent): Promise<void> { 
 
     this.key = event.key;
 
@@ -50,6 +62,9 @@ export class AppComponent {
     }
     else if (event.key == "1"){
       this.answer = await (await this.gameService.getAnswer()).toString();
+    }
+    else if (event.key == "2"){
+      this.showSuccess();
     }
     else if (this.letterIndex <= this.letterCount - 1){    
       // if a-z or A-Z
