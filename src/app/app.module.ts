@@ -8,6 +8,7 @@ import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { LetterComponent } from './letter/letter.component';
 import { WordComponent } from './word/word.component';
+import { GameService } from './game.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { WordComponent } from './word/word.component';
     GraphQLModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [GameService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
 import { Component, HostListener, QueryList, ViewChildren } from '@angular/core';
 import { Apollo } from 'apollo-angular';
+import { GameService } from './game.service';
 import { GET_ALL_WORDS } from './graphql/graphql.queries';
 import { LetterStates } from './letter/letterModel';
 import { WordComponent } from './word/word.component';
@@ -20,15 +21,18 @@ export class AppComponent {
   allWords!: string[];
   words: Word[] = new Array(this.wordCount);
   key: any;
-  
-  constructor(private apollo: Apollo) {
+  gameService: GameService;
+
+  constructor(private apollo: Apollo,
+              game: GameService) {
 
     this.apollo.watchQuery({ query: GET_ALL_WORDS }).valueChanges
       .subscribe(({ data, error }: any) => {
           this.allWords = data.allWords;   
         } 
       );
-      
+    
+    this.gameService = game;
     this.resetWords();
 
   }
@@ -36,7 +40,7 @@ export class AppComponent {
   @ViewChildren('appword') wordComponents !: QueryList<WordComponent>;
   
   @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) { 
+  async handleKeyboardEvent(event: KeyboardEvent) { 
 
     this.key = event.key;
 
@@ -55,7 +59,8 @@ export class AppComponent {
     if ((this.letterIndex == this.letterCount) && 
       (this.wordIndex < this.wordCount) &&
       (event.key == "Enter")){
-
+      // var result = await this.gameService.checkLetters(this.getCurrentWord(), this.words);
+      await this.gameService.updateLetterStates(this.words[this.wordIndex]);
         if (this.isWordInDictionary()) this.goToNextWord();
         else this.stayAtCurrentWord();
    }
