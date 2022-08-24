@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { CHECK_WORD, GET_ANSWER } from './graphql/graphql.queries';
-import { Word } from './word/wordModel';
+import { Word, WordState } from './word/wordModel';
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +10,21 @@ export class GameService {
   
   constructor(private apollo: Apollo) { }
 
-  async checkWord(word: Word): Promise<Boolean>{
+   async checkWord(word: Word): Promise<WordState>{
 
     const wordString = this.getWordString(word);    
     const result = await this.checkWordQuery(wordString);    
-    if (result.isWordInDictionary){ 
+    if (result.isWordInList){ 
       word.letters.forEach((letter, i) => {
         letter.state = result.letterStates[i];      
       });
     }
-    return result.isWordInDictionary;
+
+    var wordState = WordState.NotInList;
+    if (result.isWordCorrect) wordState = WordState.Correct;
+    else if (result.isWordInList) wordState = WordState.WrongButInList;
+
+    return wordState;
   }
 
   async checkWordQuery(word: String): Promise<any>{
@@ -30,7 +35,7 @@ export class GameService {
       variables: { word },
     })
 
-    return result.data.checkWord;   
+    return result.data.checkWord;
   }
 
   async getAnswer(): Promise<any>{

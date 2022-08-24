@@ -4,7 +4,7 @@ import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { GameService } from './game.service';
 import { GET_ALL_WORDS } from './graphql/graphql.queries';
 import { WordComponent } from './word/word.component';
-import { Word } from './word/wordModel';
+import { Word, WordState } from './word/wordModel';
 
 @Component({
   selector: 'app-root',
@@ -44,11 +44,19 @@ export class AppComponent implements OnInit {
   }
 
   showSuccess() {
-    this.toastrService.success('Hello world!', 'Toastr fun!');
+    this.toastrService.success('Awesome!', '', {
+      disableTimeOut: true,
+      tapToDismiss: true,
+      closeButton: true
+    });
   }
+
   showNotInList() {
-    this.toastrService.info('Not in list');
+    this.toastrService.info('Not in list', '', {
+      timeOut: 1500,
+    });
   }
+
   @ViewChildren('appword') wordComponents !: QueryList<WordComponent>;
   @ViewChild(ToastContainerDirective, { static: true })
   toastContainer!: ToastContainerDirective;
@@ -65,9 +73,6 @@ export class AppComponent implements OnInit {
     else if (event.key == "1"){
       this.answer = await (await this.gameService.getAnswer()).toString();
     }
-    else if (event.key == "2"){
-      this.showSuccess();
-    }
     else if (this.letterIndex <= this.letterCount - 1){    
       // if a-z or A-Z
       if (event.keyCode >= 65 && event.keyCode <= 90){
@@ -79,11 +84,24 @@ export class AppComponent implements OnInit {
     if ((this.letterIndex == this.letterCount) && 
       (this.wordIndex < this.wordCount) &&
       (event.key == "Enter")){
-      var isWordInList = await this.gameService.checkWord(this.words[this.wordIndex]);
-        if (isWordInList) this.goToNextWord();
-        else this.wordNotInList();
+        
+      var wordState = await this.gameService.checkWord(this.words[this.wordIndex]);
+      switch (wordState) {
+        case WordState.Correct:
+          this.wordCorrect();
+          break;
+        case WordState.NotInList:
+          this.wordNotInList();
+          break;
+        case WordState.WrongButInList:
+          this.goToNextWord();        
+          break;
+      }
    }
+  }
 
+  wordCorrect(){
+    this.showSuccess();
   }
 
   goToNextWord(){

@@ -1,5 +1,11 @@
 import { Letter } from "../letter/letterModel";
 
+export enum WordState {
+    NotInList,
+    WrongButInList,
+    Correct    
+}
+
 export class Word { 
 
     letters: Letter[] = new Array(5);

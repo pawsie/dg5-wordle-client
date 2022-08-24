@@ -9,7 +9,8 @@ export const GET_ALL_WORDS = gql`
 export const CHECK_WORD = gql`
   query CheckWord($word: String!) {
     checkWord(word: $word) {
-      isWordInDictionary
+      isWordInList
+      isWordCorrect
       letterStates
     }
   }
