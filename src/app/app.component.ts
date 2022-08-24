@@ -100,8 +100,9 @@ export class AppComponent implements OnInit {
    }
   }
 
-  wordCorrect(){
-    this.wordComponents.toArray()[this.wordIndex].flip();
+  async wordCorrect(){
+    this.wordComponents.toArray()[this.wordIndex].jump();
+    await this.delay(3000);
     this.showSuccess();
   }
 
@@ -136,4 +137,9 @@ export class AppComponent implements OnInit {
       this.words[i] = new Word();
     }
   }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
 }
