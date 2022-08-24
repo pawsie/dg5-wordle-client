@@ -2,7 +2,6 @@ import { Component, HostListener, QueryList, ViewChildren } from '@angular/core'
 import { Apollo } from 'apollo-angular';
 import { GameService } from './game.service';
 import { GET_ALL_WORDS } from './graphql/graphql.queries';
-import { LetterStates } from './letter/letterModel';
 import { WordComponent } from './word/word.component';
 import { Word } from './word/wordModel';
 
@@ -59,27 +58,15 @@ export class AppComponent {
     if ((this.letterIndex == this.letterCount) && 
       (this.wordIndex < this.wordCount) &&
       (event.key == "Enter")){
-      // var result = await this.gameService.checkLetters(this.getCurrentWord(), this.words);
-      await this.gameService.updateLetterStates(this.words[this.wordIndex]);
-        if (this.isWordInDictionary()) this.goToNextWord();
+      var isWordInDictionary = await this.gameService.checkWord(this.words[this.wordIndex]);
+        if (isWordInDictionary) this.goToNextWord();
         else this.stayAtCurrentWord();
    }
 
   }
 
-  isWordInDictionary(): boolean{
-    var word = this.getCurrentWord();
-    return this.allWords.includes(this.getCurrentWord().toLowerCase());    
-  }
-
   goToNextWord(){
     this.wordComponents.toArray()[this.wordIndex].flip();
-
-    this.words[this.wordIndex].letters[0].state = LetterStates.RightLetterRightPlace;
-    this.words[this.wordIndex].letters[1].state = LetterStates.RightLetterWrongPlace;
-    this.words[this.wordIndex].letters[2].state = LetterStates.WrongLetter;
-    this.words[this.wordIndex].letters[3].state = LetterStates.RightLetterRightPlace;
-    this.words[this.wordIndex].letters[4].state = LetterStates.RightLetterWrongPlace;
 
     this.wordIndex += 1;
     this.letterIndex = 0;

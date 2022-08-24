@@ -6,10 +6,11 @@ export const GET_ALL_WORDS = gql`
   }
 `
 
-export const CHECK_LETTERS = gql`
-  query CheckLetters($word: String!) {
-    gameWord
-    gameState
-    checkLetters(word: $word)
+export const CHECK_WORD = gql`
+  query CheckWord($word: String!) {
+    checkWord(word: $word) {
+      isWordInDictionary
+      letterStates
+    }
   }
 `
