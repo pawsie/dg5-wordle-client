@@ -14,3 +14,9 @@ export const CHECK_WORD = gql`
     }
   }
 `
+
+export const GET_ANSWER = gql`
+  query {
+    gameWord
+  }
+`

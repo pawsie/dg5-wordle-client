@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { CHECK_WORD } from './graphql/graphql.queries';
+import { CHECK_WORD, GET_ANSWER } from './graphql/graphql.queries';
 import { Word } from './word/wordModel';
 
 @Injectable({
@@ -31,6 +31,16 @@ export class GameService {
     })
 
     return result.data.checkWord;   
+  }
+
+  async getAnswer(): Promise<any>{
+        
+    const result = await this.apollo.client
+    .query<any>({
+      query: GET_ANSWER
+    })
+
+    return result.data.gameWord;   
   }
 
   getWordString(word: Word){

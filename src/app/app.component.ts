@@ -21,6 +21,7 @@ export class AppComponent {
   words: Word[] = new Array(this.wordCount);
   key: any;
   gameService: GameService;
+  answer!: string;
 
   constructor(private apollo: Apollo,
               game: GameService) {
@@ -46,6 +47,9 @@ export class AppComponent {
     if ((this.letterIndex >= 0 && this.letterIndex <= this.letterCount) && (event.key == "Backspace")){
       if (this.letterIndex > 0) this.letterIndex -= 1;
       this.words[this.wordIndex].letters[this.letterIndex].value = this.blank;      
+    }
+    else if (event.key == "1"){
+      this.answer = await (await this.gameService.getAnswer()).toString();
     }
     else if (this.letterIndex <= this.letterCount - 1){    
       // if a-z or A-Z
