@@ -101,6 +101,7 @@ export class AppComponent implements OnInit {
   }
 
   wordCorrect(){
+    this.wordComponents.toArray()[this.wordIndex].flip();
     this.showSuccess();
   }
 
