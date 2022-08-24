@@ -46,7 +46,9 @@ export class AppComponent implements OnInit {
   showSuccess() {
     this.toastrService.success('Hello world!', 'Toastr fun!');
   }
-
+  showNotInList() {
+    this.toastrService.info('Not in list');
+  }
   @ViewChildren('appword') wordComponents !: QueryList<WordComponent>;
   @ViewChild(ToastContainerDirective, { static: true })
   toastContainer!: ToastContainerDirective;
@@ -77,9 +79,9 @@ export class AppComponent implements OnInit {
     if ((this.letterIndex == this.letterCount) && 
       (this.wordIndex < this.wordCount) &&
       (event.key == "Enter")){
-      var isWordInDictionary = await this.gameService.checkWord(this.words[this.wordIndex]);
-        if (isWordInDictionary) this.goToNextWord();
-        else this.stayAtCurrentWord();
+      var isWordInList = await this.gameService.checkWord(this.words[this.wordIndex]);
+        if (isWordInList) this.goToNextWord();
+        else this.wordNotInList();
    }
 
   }
@@ -91,8 +93,9 @@ export class AppComponent implements OnInit {
     this.letterIndex = 0;
   }
 
-  stayAtCurrentWord(){
+  wordNotInList(){
     this.wordComponents.toArray()[this.wordIndex].shake();
+    this.showNotInList();
   }
 
   getCurrentWord(){

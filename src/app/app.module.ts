@@ -26,6 +26,7 @@ import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot({
       positionClass: 'toast-top-center',
       preventDuplicates: true,
+      timeOut: 1500
     }),
     ToastContainerModule,
   ],
