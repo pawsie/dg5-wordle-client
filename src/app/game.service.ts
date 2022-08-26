@@ -26,9 +26,14 @@ export class GameService {
     )    
 
     this.gameState = result.data.startGame.gameState;
+    console.log(result.data);
     return result.data;
   }
 
+  endGame() {
+    this.gameState = GameStatus.Complete;
+  }
+  
    async checkWord(word: Word): Promise<WordState>{
 
     const wordString = this.getWordString(word);    

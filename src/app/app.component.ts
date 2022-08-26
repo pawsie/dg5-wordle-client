@@ -54,11 +54,11 @@ export class AppComponent implements OnInit {
       closeButton: false
     })
       .onTap
-      .subscribe(() => this.toasterClickedHandler());
+      .subscribe(() => this.showStartClickedHandler());
   }
   
-  toasterClickedHandler() {
-    console.log('Toastr clicked');
+  showStartClickedHandler() {
+    console.log('showStart clicked');
     this.gameService.startGame();
   }
 
@@ -67,7 +67,12 @@ export class AppComponent implements OnInit {
       disableTimeOut: true,
       tapToDismiss: true,
       closeButton: true
-    });
+    }).onHidden
+    .subscribe(() => this.showSuccessClickedHandler());
+  }
+  showSuccessClickedHandler() {
+    console.log('showStart clicked');
+    this.resetGame();
   }
 
   showNotInList() {
@@ -126,8 +131,9 @@ export class AppComponent implements OnInit {
 
   async wordCorrect(){
     this.wordComponents.toArray()[this.wordIndex].jump();
-    await this.delay(3000);
+    await this.delay(2500);
     this.showSuccess();
+    this.gameService.endGame();
   }
 
   goToNextWord(){
@@ -147,6 +153,7 @@ export class AppComponent implements OnInit {
   }
 
   resetGame(){
+    this.gameService.startGame();
     this.resetIndices();
     this.resetWords();
   }

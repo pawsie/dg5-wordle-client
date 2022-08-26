@@ -16,7 +16,7 @@ const shakeAnimation = [
 ];
 
 const jumpAnimation = [
-  animate('0.5s 2000ms', 
+  animate('0.5s 1400ms', 
     keyframes([
       style({transform: 'translateY(-20px)', offset: 0}),
       style({transform: 'translateY(-40px)', offset: 0.2}),

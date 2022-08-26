@@ -26,7 +26,8 @@ export const START_GAME = gql`
   mutation StartGame {
     startGame{
       gameState
-      success
+      gameWord
+      success      
     }
   }
 `;
