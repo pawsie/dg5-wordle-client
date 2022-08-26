@@ -3,11 +3,12 @@ export enum LetterStates {
     WrongLetter,
     RightLetterWrongPlace,
     RightLetterRightPlace,
+    Empty
   };
   
 export class Letter { 
   value: string = '';
-  state = LetterStates.BeforeCheck;
+  state = LetterStates.Empty;
     toString: any;
 }
 

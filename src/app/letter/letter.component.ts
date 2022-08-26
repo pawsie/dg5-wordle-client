@@ -2,18 +2,29 @@ import { animate, keyframes, state, style, transition, trigger } from '@angular/
 import { Component, Input, OnInit } from '@angular/core';
 import { Letter, LetterStates } from './letterModel';
 
+const expandAnimation = [
+  animate('0.05s', 
+    keyframes([
+      style({transform: 'scale(1.1)'}),
+      style({transform: 'scale(1.2)'}),
+      style({transform: 'scale(1)'}),
+    ])
+  )
+];
 
 @Component({
   selector: 'app-letter',
   templateUrl: './letter.component.html',
   styleUrls: ['./letter.component.scss'],
   animations: [
-    trigger('flip', [
+    trigger('letterStateChanged', [
         state(`${LetterStates.BeforeCheck}`, style( getColors(LetterStates.BeforeCheck))),
         state(`${LetterStates.RightLetterRightPlace}`, style( getColors(LetterStates.RightLetterRightPlace))),
         state(`${LetterStates.RightLetterWrongPlace}`, style( getColors(LetterStates.RightLetterWrongPlace))),
         state(`${LetterStates.WrongLetter}`, style( getColors(LetterStates.WrongLetter))),
+        state(`${LetterStates.Empty}`, style( getColors(LetterStates.Empty))),
 
+        transition(`${LetterStates.Empty} => ${LetterStates.BeforeCheck}`, expandAnimation),
         transition(`${LetterStates.BeforeCheck} => ${LetterStates.BeforeCheck}`, getFlipAnimation(LetterStates.BeforeCheck)),
         transition(`${LetterStates.BeforeCheck} => ${LetterStates.RightLetterRightPlace}`, getFlipAnimation(LetterStates.RightLetterRightPlace)),
         transition(`${LetterStates.BeforeCheck} => ${LetterStates.RightLetterWrongPlace}`, getFlipAnimation(LetterStates.RightLetterWrongPlace)),
@@ -46,6 +57,10 @@ function getColors(letterState: LetterStates){
   var borderColor = 'gray';
 
   switch (letterState){
+    case LetterStates.Empty:
+      var textColor = 'black';
+      borderColor = 'lightgray';
+      break;
     case LetterStates.BeforeCheck:
       textColor = 'black';
       backgroundColor = 'white';

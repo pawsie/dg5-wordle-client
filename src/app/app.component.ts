@@ -3,6 +3,7 @@ import { Apollo } from 'apollo-angular';
 import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { GameService } from './game.service';
 import { GET_ALL_WORDS } from './graphql/graphql.queries';
+import { LetterStates } from './letter/letterModel';
 import { WordComponent } from './word/word.component';
 import { Word, WordState } from './word/wordModel';
 
@@ -68,7 +69,8 @@ export class AppComponent implements OnInit {
 
     if ((this.letterIndex >= 0 && this.letterIndex <= this.letterCount) && (event.key == "Backspace")){
       if (this.letterIndex > 0) this.letterIndex -= 1;
-      this.words[this.wordIndex].letters[this.letterIndex].value = this.blank;      
+      this.words[this.wordIndex].letters[this.letterIndex].value = this.blank;
+      this.words[this.wordIndex].letters[this.letterIndex].state = LetterStates.Empty;
     }
     else if (event.key == "1"){
       this.answer = await (await this.gameService.getAnswer()).toString();
@@ -77,6 +79,7 @@ export class AppComponent implements OnInit {
       // if a-z or A-Z
       if (event.keyCode >= 65 && event.keyCode <= 90){
         this.words[this.wordIndex].letters[this.letterIndex].value = event.key.toUpperCase();
+        this.words[this.wordIndex].letters[this.letterIndex].state = LetterStates.BeforeCheck;
         this.letterIndex += 1;        
       }   
     }
