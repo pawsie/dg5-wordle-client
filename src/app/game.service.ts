@@ -1,14 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { CHECK_WORD, GET_ANSWER } from './graphql/graphql.queries';
+import { CHECK_WORD, GET_ANSWER, START_GAME } from './graphql/graphql.queries';
 import { Word, WordState } from './word/wordModel';
+
+export enum GameStatus { 
+  BeforeStart,
+  InProgress,
+  Complete
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
   
+  gameState = GameStatus.BeforeStart;
+
   constructor(private apollo: Apollo) { }
+
+  async startGame(): Promise<any>{
+        
+    const result = await this.apollo.client
+    .mutate<any>(
+      { mutation: START_GAME  }
+    )    
+
+    this.gameState = result.data.startGame.gameState;
+    return result.data;
+  }
 
    async checkWord(word: Word): Promise<WordState>{
 

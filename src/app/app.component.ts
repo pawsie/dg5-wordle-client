@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
-import { GameService } from './game.service';
+import { GameService, GameStatus } from './game.service';
 import { GET_ALL_WORDS } from './graphql/graphql.queries';
 import { LetterStates } from './letter/letterModel';
 import { WordComponent } from './word/word.component';
@@ -35,13 +35,31 @@ export class AppComponent implements OnInit {
         } 
       );
     
-    this.gameService = game;
     this.resetWords();
+    this.gameService = game;
+    
+    this.showStart();
+
 
   }
 
   ngOnInit() {
     this.toastrService.overlayContainer = this.toastContainer;
+  }
+
+  showStart() {
+    this.toastrService.show('Start now', '', {
+      disableTimeOut: true,
+      tapToDismiss: true,
+      closeButton: false
+    })
+      .onTap
+      .subscribe(() => this.toasterClickedHandler());
+  }
+  
+  toasterClickedHandler() {
+    console.log('Toastr clicked');
+    this.gameService.startGame();
   }
 
   showSuccess() {
@@ -67,40 +85,43 @@ export class AppComponent implements OnInit {
 
     this.key = event.key;
 
-    if ((this.letterIndex >= 0 && this.letterIndex <= this.letterCount) && (event.key == "Backspace")){
-      if (this.letterIndex > 0) this.letterIndex -= 1;
-      this.words[this.wordIndex].letters[this.letterIndex].value = this.blank;
-      this.words[this.wordIndex].letters[this.letterIndex].state = LetterStates.Empty;
-    }
-    else if (event.key == "1"){
-      this.answer = await (await this.gameService.getAnswer()).toString();
-    }
-    else if (this.letterIndex <= this.letterCount - 1){    
-      // if a-z or A-Z
-      if (event.keyCode >= 65 && event.keyCode <= 90){
-        this.words[this.wordIndex].letters[this.letterIndex].value = event.key.toUpperCase();
-        this.words[this.wordIndex].letters[this.letterIndex].state = LetterStates.BeforeCheck;
-        this.letterIndex += 1;        
-      }   
-    }
-    
-    if ((this.letterIndex == this.letterCount) && 
-      (this.wordIndex < this.wordCount) &&
-      (event.key == "Enter")){
-        
-      var wordState = await this.gameService.checkWord(this.words[this.wordIndex]);
-      switch (wordState) {
-        case WordState.Correct:
-          this.wordCorrect();
-          break;
-        case WordState.NotInList:
-          this.wordNotInList();
-          break;
-        case WordState.WrongButInList:
-          this.goToNextWord();        
-          break;
+    if (this.gameService.gameState == GameStatus.InProgress)
+    {
+      if ((this.letterIndex >= 0 && this.letterIndex <= this.letterCount) && (event.key == "Backspace")){
+        if (this.letterIndex > 0) this.letterIndex -= 1;
+        this.words[this.wordIndex].letters[this.letterIndex].value = this.blank;
+        this.words[this.wordIndex].letters[this.letterIndex].state = LetterStates.Empty;
       }
-   }
+      else if (event.key == "1"){
+        this.answer = await (await this.gameService.getAnswer()).toString();
+      }
+      else if (this.letterIndex <= this.letterCount - 1){    
+        // if a-z or A-Z
+        if (event.keyCode >= 65 && event.keyCode <= 90){
+          this.words[this.wordIndex].letters[this.letterIndex].value = event.key.toUpperCase();
+          this.words[this.wordIndex].letters[this.letterIndex].state = LetterStates.BeforeCheck;
+          this.letterIndex += 1;        
+        }   
+      }
+      
+      if ((this.letterIndex == this.letterCount) && 
+        (this.wordIndex < this.wordCount) &&
+        (event.key == "Enter")){
+          
+        var wordState = await this.gameService.checkWord(this.words[this.wordIndex]);
+        switch (wordState) {
+          case WordState.Correct:
+            this.wordCorrect();
+            break;
+          case WordState.NotInList:
+            this.wordNotInList();
+            break;
+          case WordState.WrongButInList:
+            this.goToNextWord();        
+            break;
+        }
+      }  
+    }
   }
 
   async wordCorrect(){

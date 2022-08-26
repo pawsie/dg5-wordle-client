@@ -21,3 +21,12 @@ export const GET_ANSWER = gql`
     gameWord
   }
 `
+
+export const START_GAME = gql`
+  mutation StartGame {
+    startGame{
+      gameState
+      success
+    }
+  }
+`;
