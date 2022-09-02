@@ -89,7 +89,7 @@ function getFlipAnimation(letterState: LetterStates){
   var colors = getColors(letterState);
 
   return [
-    animate('0.5s', 
+    animate('0.3s', 
       keyframes([
         style({transform: 'scaleY(60%)', offset: 0.5}),
         style({transform: 'scaleY(30%)', offset: 0.6}),

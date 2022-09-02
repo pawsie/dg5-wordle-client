@@ -34,7 +34,7 @@ const jumpAnimation = [
   styleUrls: ['./word.component.scss'],
   animations: [
     trigger('shake', [transition('true <=> false', shakeAnimation)]),
-    trigger('flipLetters', [transition('true <=> false', [query('.app-letter', stagger('500ms', animateChild()), { optional: true })])]),
+    trigger('flipLetters', [transition('true <=> false', [query('.app-letter', stagger('300ms', animateChild()), { optional: true })])]),
     trigger('jumpLetters', [transition('true <=> false', sequence([ query('.app-letter', stagger('500ms', animateChild())),  
                                                                     query('.app-letter', stagger('100ms', jumpAnimation))],
     ))])
