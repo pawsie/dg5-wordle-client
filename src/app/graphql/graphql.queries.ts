@@ -16,11 +16,11 @@ export const CHECK_WORD = gql`
   }
 `
 
-export const GET_ANSWER = gql`
-  query {
-    gameWord
-  }
-`
+// export const GET_ANSWER = gql`
+//   query {
+//     gameWord
+//   }
+// `
 
 export const START_GAME = gql`
   mutation StartGame {

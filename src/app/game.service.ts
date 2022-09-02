@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { CHECK_WORD, GET_ANSWER, START_GAME } from './graphql/graphql.queries';
+import { CHECK_WORD, START_GAME } from './graphql/graphql.queries';
 import { Word, WordState } from './word/wordModel';
 
 export enum GameStatus { 
@@ -62,15 +62,15 @@ export class GameService {
     return result.data.checkWord;
   }
 
-  async getAnswer(): Promise<any>{
+  // async getAnswer(): Promise<any>{
         
-    const result = await this.apollo.client
-    .query<any>({
-      query: GET_ANSWER
-    })
+  //   const result = await this.apollo.client
+  //   .query<any>({
+  //     query: GET_ANSWER
+  //   })
 
-    return result.data.gameWord;   
-  }
+  //   return result.data.gameWord;   
+  // }
 
   getWordString(word: Word){
     return word.letters.join('');

@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
   key: any;
   gameService: GameService;
   answer!: string;
+  answerDisplayed!: string;
 
   constructor(private apollo: Apollo,
               game: GameService,
@@ -57,9 +58,10 @@ export class AppComponent implements OnInit {
       .subscribe(() => this.showStartClickedHandler());
   }
   
-  showStartClickedHandler() {
+  async showStartClickedHandler() {
     console.log('showStart clicked');
-    this.gameService.startGame();
+    this.resetGame();
+
   }
 
   showSuccess() {
@@ -71,7 +73,7 @@ export class AppComponent implements OnInit {
     .subscribe(() => this.showSuccessClickedHandler());
   }
   showSuccessClickedHandler() {
-    console.log('showStart clicked');
+    console.log('showSuccess clicked');
     this.resetGame();
   }
 
@@ -79,6 +81,21 @@ export class AppComponent implements OnInit {
     this.toastrService.info('Not in list', '', {
       timeOut: 1500,
     });
+  }
+
+  showAnswer() {
+    this.toastrService.show(this.answer, '', {
+      disableTimeOut: true,
+      tapToDismiss: true,
+      closeButton: false
+    })
+      .onTap
+      .subscribe(() => this.showAnswerClickedHandler());
+  }
+
+  showAnswerClickedHandler() {
+    console.log('showAnswer clicked');
+    this.resetGame();
   }
 
   @ViewChildren('appword') wordComponents !: QueryList<WordComponent>;
@@ -98,7 +115,7 @@ export class AppComponent implements OnInit {
         this.words[this.wordIndex].letters[this.letterIndex].state = LetterStates.Empty;
       }
       else if (event.key == "1"){
-        this.answer = await (await this.gameService.getAnswer()).toString();
+        this.answerDisplayed = this.answer;
       }
       else if (this.letterIndex <= this.letterCount - 1){    
         // if a-z or A-Z
@@ -124,6 +141,11 @@ export class AppComponent implements OnInit {
           case WordState.WrongButInList:
             this.goToNextWord();        
             break;
+        }
+
+        // didn't manage to guess after max tries
+        if (this.wordIndex == this.wordCount){
+          this.showAnswer();
         }
       }  
     }
@@ -152,8 +174,10 @@ export class AppComponent implements OnInit {
     return this.words[this.wordIndex].letters.join('');
   }
 
-  resetGame(){
-    this.gameService.startGame();
+  async resetGame(){
+    var result = await this.gameService.startGame();
+    this.answer = result.startGame.gameWord;
+
     this.resetIndices();
     this.resetWords();
   }
