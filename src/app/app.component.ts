@@ -158,9 +158,9 @@ export class AppComponent implements OnInit {
     this.gameService.endGame();
   }
 
-  goToNextWord(){
+  async goToNextWord(){
     this.wordComponents.toArray()[this.wordIndex].flip();
-
+    await this.delay(1500);
     this.wordIndex += 1;
     this.letterIndex = 0;
   }
