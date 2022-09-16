@@ -143,10 +143,7 @@ export class AppComponent implements OnInit {
             break;
         }
 
-        // didn't manage to guess after max tries
-        if (this.wordIndex == this.wordCount){
-          this.showAnswer();
-        }
+
       }  
     }
   }
@@ -163,6 +160,11 @@ export class AppComponent implements OnInit {
     await this.delay(1500);
     this.wordIndex += 1;
     this.letterIndex = 0;
+
+    // didn't manage to guess after max tries
+    if (this.wordIndex == this.wordCount){
+      this.showAnswer();
+    }
   }
 
   wordNotInList(){
