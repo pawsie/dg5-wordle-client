@@ -30,6 +30,7 @@ body * {
     text-align: center;
     padding-top: 17px;
     caret-color: transparent;
+    cursor: pointer;
 }
 
 .key:hover {
@@ -45,4 +46,20 @@ body * {
 }
 .back {
     grid-column: span 3;
+}
+
+.right-letter-right-place {
+    background-color: rgb(106, 170, 100);
+    border-color: rgb(106, 170, 100);
+    color: white;
+}
+.right-letter-wrong-place {
+    background-color: rgb(201, 180, 88);
+    border-color: rgb(201, 180, 88);
+    color: white;    
+}
+.wrong-letter{
+    background-color: gray;
+    border-color: gray;
+    color: white;    
 }

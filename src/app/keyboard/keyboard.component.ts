@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
+enum KeyStates { 
+  Unused = '',
+  WrongLetter = 'wrong-letter',
+  RightLetterWrongPlace = 'right-letter-wrong-place',
+  RightLetterRightPlace = 'right-letter-right-place',
+};
+
 @Component({
   selector: 'app-keyboard',
   templateUrl: './keyboard.component.html',
@@ -7,9 +14,77 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KeyboardComponent implements OnInit {
 
-  constructor() { }
+  myMap = {
+    'Q': KeyStates.Unused,
+    'W': KeyStates.RightLetterRightPlace,
+    'E': KeyStates.RightLetterWrongPlace,
+    'R': KeyStates.WrongLetter,
+    'T': KeyStates.Unused,
+    'Y': KeyStates.Unused,
+    'U': KeyStates.Unused,
+    'I': KeyStates.Unused,
+    'O': KeyStates.Unused,
+    'P': KeyStates.Unused,
+
+    'A': KeyStates.Unused,
+    'S': KeyStates.Unused,
+    'D': KeyStates.Unused,
+    'F': KeyStates.Unused,
+    'G': KeyStates.Unused,
+    'H': KeyStates.Unused,
+    'J': KeyStates.Unused,
+    'K': KeyStates.Unused,
+    'L': KeyStates.Unused,
+
+    'Z': KeyStates.Unused,
+    'X': KeyStates.Unused,
+    'C': KeyStates.Unused,
+    'V': KeyStates.Unused,
+    'B': KeyStates.Unused,
+    'N': KeyStates.Unused,
+    'M': KeyStates.Unused   
+  }
+
+  // keyMap: Map<string, string> = new Map<string, string>([
+  //   ['Q', KeyStates.Unused.valueOf()],
+  //   ['W', KeyStates.RightLetterRightPlace.valueOf()],
+  //   ['E', KeyStates.RightLetterWrongPlace.valueOf()],
+  //   ['R', KeyStates.WrongLetter.valueOf()],
+  //   ['T', KeyStates.Unused.valueOf()],
+  //   ['Y', KeyStates.Unused.valueOf()],
+  //   ['U', KeyStates.Unused.valueOf()],
+  //   ['I', KeyStates.Unused.valueOf()],
+  //   ['O', KeyStates.Unused.valueOf()],
+  //   ['P', KeyStates.Unused.valueOf()],
+
+  //   ['A', KeyStates.Unused.valueOf()],
+  //   ['S', KeyStates.RightLetterRightPlace.valueOf()],
+  //   ['D', KeyStates.Unused.valueOf()],
+  //   ['F', KeyStates.Unused.valueOf()],
+  //   ['G', KeyStates.Unused.valueOf()],
+  //   ['H', KeyStates.Unused.valueOf()],
+  //   ['J', KeyStates.Unused.valueOf()],
+  //   ['K', KeyStates.Unused.valueOf()],
+  //   ['L', KeyStates.Unused.valueOf()],
+
+  //   ['Z', KeyStates.Unused.valueOf()],
+  //   ['X', KeyStates.Unused.valueOf()],
+  //   ['C', KeyStates.Unused.valueOf()],
+  //   ['V', KeyStates.Unused.valueOf()],
+  //   ['B', KeyStates.Unused.valueOf()],
+  //   ['N', KeyStates.Unused.valueOf()],
+  //   ['M', KeyStates.Unused.valueOf()],
+  // ]);
+  
+  constructor() {     
+    
+    this.myMap['T'] = KeyStates.RightLetterRightPlace;
+  }
 
   ngOnInit(): void {
   }
 
+  // asIsOrder() {
+  //   return 1;
+  // }
 }
