@@ -10,12 +10,14 @@ import { LetterComponent } from './letter/letter.component';
 import { WordComponent } from './word/word.component';
 import { GameService } from './game.service';
 import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
+import { KeyboardComponent } from './keyboard/keyboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LetterComponent,
-    WordComponent
+    WordComponent,
+    KeyboardComponent
   ],
   imports: [
     BrowserModule,
