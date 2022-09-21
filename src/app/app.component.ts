@@ -3,6 +3,7 @@ import { Apollo } from 'apollo-angular';
 import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { GameService, GameStatus } from './game.service';
 import { GET_ALL_WORDS } from './graphql/graphql.queries';
+import { KeyboardComponent, KeyStates } from './keyboard/keyboard.component';
 import { LetterStates } from './letter/letterModel';
 import { WordComponent } from './word/word.component';
 import { Word, WordState } from './word/wordModel';
@@ -25,6 +26,7 @@ export class AppComponent implements OnInit {
   gameService: GameService;
   answer!: string;
   answerDisplayed!: string;
+  keyMap : any;
 
   constructor(private apollo: Apollo,
               game: GameService,
@@ -99,6 +101,7 @@ export class AppComponent implements OnInit {
   }
 
   @ViewChildren('appword') wordComponents !: QueryList<WordComponent>;
+  @ViewChildren('appkeyboard') keyboardComponents !: QueryList<KeyboardComponent>;
   @ViewChild(ToastContainerDirective, { static: true })
   toastContainer!: ToastContainerDirective;
   
@@ -158,6 +161,9 @@ export class AppComponent implements OnInit {
   async goToNextWord(){
     this.wordComponents.toArray()[this.wordIndex].flip();
     await this.delay(1500);
+
+    this.updateUsedKeys();
+
     this.wordIndex += 1;
     this.letterIndex = 0;
 
@@ -165,6 +171,13 @@ export class AppComponent implements OnInit {
     if (this.wordIndex == this.wordCount){
       this.showAnswer();
     }
+  }
+
+  updateUsedKeys(){
+    // update used keys
+    for (var i = 0; i < this.letterCount; i++){
+      this.keyboardComponents.toArray()[0].updateKeyMap(this.words[this.wordIndex].letters[i].value, KeyStates.RightLetterRightPlace);
+    } 
   }
 
   wordNotInList(){
