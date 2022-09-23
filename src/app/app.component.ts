@@ -174,10 +174,29 @@ export class AppComponent implements OnInit {
   }
 
   updateUsedKeys(){
+    const word = this.words[this.wordIndex]; 
     // update used keys
     for (var i = 0; i < this.letterCount; i++){
-      this.keyboardComponents.toArray()[0].updateKeyMap(this.words[this.wordIndex].letters[i].value, KeyStates.RightLetterRightPlace);
+      const letter = word.letters[i];
+      this.keyboardComponents.first.updateKeyMap(letter.value, this.mapLetterStateToKeyState(letter.state));
     } 
+  }
+
+  private mapLetterStateToKeyState(letterState: LetterStates): KeyStates {
+    switch (letterState) {
+      case LetterStates.RightLetterRightPlace: {
+        return KeyStates.RightLetterRightPlace;
+      }
+      case LetterStates.RightLetterWrongPlace: {
+        return KeyStates.RightLetterWrongPlace;
+      }
+      case LetterStates.WrongLetter: {
+        return KeyStates.WrongLetter;
+      }
+      default: {
+        return KeyStates.Unused;
+      }
+    }
   }
 
   wordNotInList(){

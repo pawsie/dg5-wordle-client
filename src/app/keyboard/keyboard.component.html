@@ -4,36 +4,36 @@
         <div class="key" [ngClass]="item.value">{{item.key}}</div>
     </div> -->
   
-    <div class="key" [ngClass]="myMap['Q']">Q</div>
-    <div class="key" [ngClass]="myMap['W']">W</div>
-    <div class="key" [ngClass]="myMap['E']">E</div>
-    <div class="key" [ngClass]="myMap['R']">R</div>
-    <div class="key" [ngClass]="myMap['T']">T</div>
-    <div class="key" [ngClass]="myMap['Y']">Y</div>
-    <div class="key" [ngClass]="myMap['U']">U</div>
-    <div class="key" [ngClass]="myMap['I']">I</div>
-    <div class="key" [ngClass]="myMap['O']">O</div>
-    <div class="key" [ngClass]="myMap['P']">P</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['Q'])">Q</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['W'])">W</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['E'])">E</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['R'])">R</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['T'])">T</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['Y'])">Y</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['U'])">U</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['I'])">I</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['O'])">O</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['P'])">P</div>
 
     <div class="spacer1"></div>
-    <div class="key" [ngClass]="myMap['A']">A</div>
-    <div class="key" [ngClass]="myMap['S']">S</div>
-    <div class="key" [ngClass]="myMap['D']">D</div>
-    <div class="key" [ngClass]="myMap['F']">F</div>
-    <div class="key" [ngClass]="myMap['G']">G</div>
-    <div class="key" [ngClass]="myMap['H']">H</div>
-    <div class="key" [ngClass]="myMap['J']">J</div>
-    <div class="key" [ngClass]="myMap['K']">K</div>
-    <div class="key" [ngClass]="myMap['L']">L</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['A'])">A</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['S'])">S</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['D'])">D</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['F'])">F</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['G'])">G</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['H'])">H</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['J'])">J</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['K'])">K</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['L'])">L</div>
 
     <div class="key enter">Enter</div>
-    <div class="key" [ngClass]="myMap['Z']">Z</div>
-    <div class="key" [ngClass]="myMap['X']">X</div>
-    <div class="key" [ngClass]="myMap['C']">C</div>
-    <div class="key" [ngClass]="myMap['V']">V</div>
-    <div class="key" [ngClass]="myMap['B']">B</div>
-    <div class="key" [ngClass]="myMap['N']">N</div>
-    <div class="key" [ngClass]="myMap['M']">M</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['Z'])">Z</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['X'])">X</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['C'])">C</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['V'])">V</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['B'])">B</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['N'])">N</div>
+    <div class="key" [ngClass]="getKeyboardStateClassName(myMap['M'])">M</div>
     <div class="key back">Back</div>
 
 </div>

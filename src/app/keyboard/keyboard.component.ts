@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 export enum KeyStates { 
-  Unused = '',
-  WrongLetter = 'wrong-letter',
-  RightLetterWrongPlace = 'right-letter-wrong-place',
-  RightLetterRightPlace = 'right-letter-right-place',
+  Unused,
+  WrongLetter,
+  RightLetterWrongPlace,
+  RightLetterRightPlace,
 };
 
 @Component({
@@ -89,7 +89,6 @@ export class KeyboardComponent implements OnInit {
   // }
 
   updateKeyMap(key: string, value: KeyStates){
-
     switch (key) {
       case 'A':
       case 'B':
@@ -116,12 +115,29 @@ export class KeyboardComponent implements OnInit {
       case 'W':    
       case 'X':    
       case 'Y':    
-      case 'Z':                 
-        this.myMap[key] = value;        
+      case 'Z': {
+        // Only update the key state if the key state is "upgraded"
+        if (value > this.myMap[key]) {
+          this.myMap[key] = value;
+        }   
         break;
+      }
     
       default:
         break;
+    }
+  }
+
+  getKeyboardStateClassName(keyState: KeyStates): String {
+    switch (keyState) {
+      case KeyStates.Unused: 
+        return '';
+      case KeyStates.WrongLetter:
+        return 'wrong-letter';
+      case KeyStates.RightLetterWrongPlace:
+        return 'right-letter-wrong-place';
+      case KeyStates.RightLetterRightPlace:
+        return 'right-letter-right-place';
     }
   }
 }
