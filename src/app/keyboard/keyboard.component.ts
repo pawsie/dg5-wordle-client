@@ -16,9 +16,9 @@ export class KeyboardComponent implements OnInit {
 
   myMap = {
     'Q': KeyStates.Unused,
-    'W': KeyStates.RightLetterRightPlace,
-    'E': KeyStates.RightLetterWrongPlace,
-    'R': KeyStates.WrongLetter,
+    'W': KeyStates.Unused,
+    'E': KeyStates.Unused,
+    'R': KeyStates.Unused,
     'T': KeyStates.Unused,
     'Y': KeyStates.Unused,
     'U': KeyStates.Unused,
@@ -78,7 +78,6 @@ export class KeyboardComponent implements OnInit {
   
   constructor() {     
     
-    this.myMap['T'] = KeyStates.RightLetterRightPlace;
   }
 
   ngOnInit(): void {
