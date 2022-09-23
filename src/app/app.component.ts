@@ -214,6 +214,7 @@ export class AppComponent implements OnInit {
 
     this.resetIndices();
     this.resetWords();
+    this.resetKeyboard();
   }
 
   resetIndices(){
@@ -225,6 +226,10 @@ export class AppComponent implements OnInit {
     for (var i = 0; i < this.wordCount; i++){
       this.words[i] = new Word();
     }
+  }
+
+  resetKeyboard(){
+    this.keyboardComponents.first.reset();
   }
 
   delay(ms: number) {

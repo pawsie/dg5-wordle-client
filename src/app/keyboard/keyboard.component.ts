@@ -14,36 +14,7 @@ export enum KeyStates {
 })
 export class KeyboardComponent implements OnInit {
 
-  myMap = {
-    'Q': KeyStates.Unused,
-    'W': KeyStates.Unused,
-    'E': KeyStates.Unused,
-    'R': KeyStates.Unused,
-    'T': KeyStates.Unused,
-    'Y': KeyStates.Unused,
-    'U': KeyStates.Unused,
-    'I': KeyStates.Unused,
-    'O': KeyStates.Unused,
-    'P': KeyStates.Unused,
-
-    'A': KeyStates.Unused,
-    'S': KeyStates.Unused,
-    'D': KeyStates.Unused,
-    'F': KeyStates.Unused,
-    'G': KeyStates.Unused,
-    'H': KeyStates.Unused,
-    'J': KeyStates.Unused,
-    'K': KeyStates.Unused,
-    'L': KeyStates.Unused,
-
-    'Z': KeyStates.Unused,
-    'X': KeyStates.Unused,
-    'C': KeyStates.Unused,
-    'V': KeyStates.Unused,
-    'B': KeyStates.Unused,
-    'N': KeyStates.Unused,
-    'M': KeyStates.Unused   
-  }
+  myMap: any;
 
   // keyMap: Map<string, string> = new Map<string, string>([
   //   ['Q', KeyStates.Unused.valueOf()],
@@ -81,6 +52,7 @@ export class KeyboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.reset();
   }
 
   // asIsOrder() {
@@ -137,6 +109,39 @@ export class KeyboardComponent implements OnInit {
         return 'right-letter-wrong-place';
       case KeyStates.RightLetterRightPlace:
         return 'right-letter-right-place';
+    }
+  }
+
+  reset() {
+    this.myMap = {
+      'Q': KeyStates.Unused,
+      'W': KeyStates.Unused,
+      'E': KeyStates.Unused,
+      'R': KeyStates.Unused,
+      'T': KeyStates.Unused,
+      'Y': KeyStates.Unused,
+      'U': KeyStates.Unused,
+      'I': KeyStates.Unused,
+      'O': KeyStates.Unused,
+      'P': KeyStates.Unused,
+  
+      'A': KeyStates.Unused,
+      'S': KeyStates.Unused,
+      'D': KeyStates.Unused,
+      'F': KeyStates.Unused,
+      'G': KeyStates.Unused,
+      'H': KeyStates.Unused,
+      'J': KeyStates.Unused,
+      'K': KeyStates.Unused,
+      'L': KeyStates.Unused,
+  
+      'Z': KeyStates.Unused,
+      'X': KeyStates.Unused,
+      'C': KeyStates.Unused,
+      'V': KeyStates.Unused,
+      'B': KeyStates.Unused,
+      'N': KeyStates.Unused,
+      'M': KeyStates.Unused   
     }
   }
 }
