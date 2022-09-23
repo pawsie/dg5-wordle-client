@@ -60,42 +60,13 @@ export class KeyboardComponent implements OnInit {
   // }
 
   updateKeyMap(key: string, value: KeyStates){
-    switch (key) {
-      case 'A':
-      case 'B':
-      case 'C':
-      case 'D':
-      case 'E':
-      case 'F':
-      case 'G':
-      case 'H':
-      case 'I':
-      case 'J':
-      case 'K': 
-      case 'L': 
-      case 'M': 
-      case 'N': 
-      case 'O': 
-      case 'P': 
-      case 'Q': 
-      case 'R': 
-      case 'S': 
-      case 'T': 
-      case 'U': 
-      case 'V':    
-      case 'W':    
-      case 'X':    
-      case 'Y':    
-      case 'Z': {
-        // Only update the key state if the key state is "upgraded"
-        if (value > this.myMap[key]) {
-          this.myMap[key] = value;
-        }   
-        break;
-      }
-    
-      default:
-        break;
+    // Regex to check for valid key string (uppercase letters only)
+    const regex = new RegExp('[A-Z]');
+    if (regex.test(key)) {
+      // Only update the key state if the key state is "upgraded"
+      if (value > this.myMap[key]) {
+        this.myMap[key] = value;
+      }  
     }
   }
 
