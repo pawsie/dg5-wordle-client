@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
   }
 
   showStart() {
-    this.toastrService.show('Start now', '', {
+    this.toastrService.show('Start now!', '', {
       disableTimeOut: true,
       tapToDismiss: true,
       closeButton: false
