@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "dg5-wordle-client": {
+      "hosting": {
+        "dg5-wordle-client": [
+          "dg5-wordle-client"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "dg5-wordle-client"
+  }
+}

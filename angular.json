@@ -101,6 +101,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "dg5-wordle-client:build:production",
+            "firebaseProject": "dg5-wordle-client",
+            "firebaseHostingSite": "dg5-wordle-client"
+          }
         }
       }
     }
