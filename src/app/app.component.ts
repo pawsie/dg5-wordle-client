@@ -154,6 +154,7 @@ export class AppComponent implements OnInit {
   async wordCorrect(){
     this.wordComponents.toArray()[this.wordIndex].jump();
     await this.delay(2500);
+    this.updateUsedKeys();
     this.showSuccess();
     this.gameService.endGame();
   }
