@@ -20,7 +20,6 @@ body * {
     grid-gap: 5px;
 }
 
-
 .key {
     background-color: rgb(243, 243, 243);
     border: 2px solid black;
@@ -38,13 +37,10 @@ body * {
   
 }
 
-.spacer1 {
+.spacer-1 {
     grid-column: span 1;
 }
-.enter {
-    grid-column: span 3;
-}
-.back {
+.non-letter-3 {
     grid-column: span 3;
 }
 

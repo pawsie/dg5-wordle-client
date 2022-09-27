@@ -5,6 +5,8 @@ export enum KeyStates {
   WrongLetter,
   RightLetterWrongPlace,
   RightLetterRightPlace,
+  Spacer1,
+  NonLetter3
 };
 
 @Component({
@@ -14,38 +16,39 @@ export enum KeyStates {
 })
 export class KeyboardComponent implements OnInit {
 
-  myMap: any;
+  keyMap: Map<string, KeyStates> = new Map<string, KeyStates>([
+    ['Q', KeyStates.Unused],
+    ['W', KeyStates.Unused],
+    ['E', KeyStates.Unused],
+    ['R', KeyStates.Unused],
+    ['T', KeyStates.Unused],
+    ['Y', KeyStates.Unused],
+    ['U', KeyStates.Unused],
+    ['I', KeyStates.Unused],
+    ['O', KeyStates.Unused],
+    ['P', KeyStates.Unused],
 
-  // keyMap: Map<string, string> = new Map<string, string>([
-  //   ['Q', KeyStates.Unused.valueOf()],
-  //   ['W', KeyStates.RightLetterRightPlace.valueOf()],
-  //   ['E', KeyStates.RightLetterWrongPlace.valueOf()],
-  //   ['R', KeyStates.WrongLetter.valueOf()],
-  //   ['T', KeyStates.Unused.valueOf()],
-  //   ['Y', KeyStates.Unused.valueOf()],
-  //   ['U', KeyStates.Unused.valueOf()],
-  //   ['I', KeyStates.Unused.valueOf()],
-  //   ['O', KeyStates.Unused.valueOf()],
-  //   ['P', KeyStates.Unused.valueOf()],
+    ['', KeyStates.Spacer1],
+    ['A', KeyStates.Unused],
+    ['S', KeyStates.Unused],
+    ['D', KeyStates.Unused],
+    ['F', KeyStates.Unused],
+    ['G', KeyStates.Unused],
+    ['H', KeyStates.Unused],
+    ['J', KeyStates.Unused],
+    ['K', KeyStates.Unused],
+    ['L', KeyStates.Unused],
 
-  //   ['A', KeyStates.Unused.valueOf()],
-  //   ['S', KeyStates.RightLetterRightPlace.valueOf()],
-  //   ['D', KeyStates.Unused.valueOf()],
-  //   ['F', KeyStates.Unused.valueOf()],
-  //   ['G', KeyStates.Unused.valueOf()],
-  //   ['H', KeyStates.Unused.valueOf()],
-  //   ['J', KeyStates.Unused.valueOf()],
-  //   ['K', KeyStates.Unused.valueOf()],
-  //   ['L', KeyStates.Unused.valueOf()],
-
-  //   ['Z', KeyStates.Unused.valueOf()],
-  //   ['X', KeyStates.Unused.valueOf()],
-  //   ['C', KeyStates.Unused.valueOf()],
-  //   ['V', KeyStates.Unused.valueOf()],
-  //   ['B', KeyStates.Unused.valueOf()],
-  //   ['N', KeyStates.Unused.valueOf()],
-  //   ['M', KeyStates.Unused.valueOf()],
-  // ]);
+    ['Enter', KeyStates.NonLetter3],
+    ['Z', KeyStates.Unused],
+    ['X', KeyStates.Unused],
+    ['C', KeyStates.Unused],
+    ['V', KeyStates.Unused],
+    ['B', KeyStates.Unused],
+    ['N', KeyStates.Unused],
+    ['M', KeyStates.Unused],
+    ['Back', KeyStates.NonLetter3],
+  ]);
   
   constructor() {     
     
@@ -55,17 +58,16 @@ export class KeyboardComponent implements OnInit {
     this.reset();
   }
 
-  // asIsOrder() {
-  //   return 1;
-  // }
+  asIsOrder() {
+    return 1;
+  }
 
   updateKeyMap(key: string, value: KeyStates){
-    // Regex to check for valid key string (uppercase letters only)
-    const regex = new RegExp('[A-Z]');
-    if (regex.test(key)) {
+    const newState = this.keyMap.get(key);    
+    if (newState != undefined){
       // Only update the key state if the key state is "upgraded"
-      if (value > this.myMap[key]) {
-        this.myMap[key] = value;
+      if (value > newState) {
+        this.keyMap.set(key, value);
       }  
     }
   }
@@ -73,46 +75,31 @@ export class KeyboardComponent implements OnInit {
   getKeyboardStateClassName(keyState: KeyStates): String {
     switch (keyState) {
       case KeyStates.Unused: 
-        return '';
+        return 'key';
       case KeyStates.WrongLetter:
-        return 'wrong-letter';
+        return 'key wrong-letter';
       case KeyStates.RightLetterWrongPlace:
-        return 'right-letter-wrong-place';
+        return 'key right-letter-wrong-place';
       case KeyStates.RightLetterRightPlace:
-        return 'right-letter-right-place';
+        return 'key right-letter-right-place';
+      case KeyStates.Spacer1:
+        return 'spacer-1';
+      case KeyStates.NonLetter3:
+        return 'key non-letter-3';
+      default:
+        return '';
     }
   }
 
   reset() {
-    this.myMap = {
-      'Q': KeyStates.Unused,
-      'W': KeyStates.Unused,
-      'E': KeyStates.Unused,
-      'R': KeyStates.Unused,
-      'T': KeyStates.Unused,
-      'Y': KeyStates.Unused,
-      'U': KeyStates.Unused,
-      'I': KeyStates.Unused,
-      'O': KeyStates.Unused,
-      'P': KeyStates.Unused,
-  
-      'A': KeyStates.Unused,
-      'S': KeyStates.Unused,
-      'D': KeyStates.Unused,
-      'F': KeyStates.Unused,
-      'G': KeyStates.Unused,
-      'H': KeyStates.Unused,
-      'J': KeyStates.Unused,
-      'K': KeyStates.Unused,
-      'L': KeyStates.Unused,
-  
-      'Z': KeyStates.Unused,
-      'X': KeyStates.Unused,
-      'C': KeyStates.Unused,
-      'V': KeyStates.Unused,
-      'B': KeyStates.Unused,
-      'N': KeyStates.Unused,
-      'M': KeyStates.Unused   
-    }
+
+    const alphaRegex = new RegExp('^[A-Z]$');
+
+    this.keyMap.forEach ((value, key) => {
+        if (alphaRegex.test(key)) 
+          this.keyMap.set(key, KeyStates.Unused);
+      }
+    );
+    
   }
 }
