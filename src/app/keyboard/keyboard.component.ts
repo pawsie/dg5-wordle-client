@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 export enum KeyStates { 
   Unused,
@@ -15,6 +15,8 @@ export enum KeyStates {
   styleUrls: ['./keyboard.component.scss']
 })
 export class KeyboardComponent implements OnInit {
+
+  @Output() onClickEvent = new EventEmitter<string>();
 
   keyMap: Map<string, KeyStates> = new Map<string, KeyStates>([
     ['Q', KeyStates.Unused],
@@ -102,4 +104,9 @@ export class KeyboardComponent implements OnInit {
     );
     
   }
+
+  onKeyClick(key: any){
+    this.onClickEvent.emit(key);
+  }
+  
 }

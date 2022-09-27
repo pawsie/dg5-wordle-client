@@ -22,7 +22,6 @@ export class AppComponent implements OnInit {
   title = 'dg5-wordle-client';
   allWords!: string[];
   words: Word[] = new Array(this.wordCount);
-  key: any;
   gameService: GameService;
   answer!: string;
   answerDisplayed!: string;
@@ -106,24 +105,32 @@ export class AppComponent implements OnInit {
   toastContainer!: ToastContainerDirective;
   
   @HostListener('document:keydown', ['$event'])
-  async handleKeyboardEvent(event: KeyboardEvent): Promise<void> { 
+  // physical keyboard keypress
+  async handleKeyboardEvent(event: KeyboardEvent): Promise<void> {
+    this.onKey(event.key)
+  }
 
-    this.key = event.key;
+  // virtual keyboard keyclick
+  onKeyboardClick(key: any){
+    this.onKey(key);
+  }
 
+  async onKey(key: string){
     if (this.gameService.gameState == GameStatus.InProgress)
     {
-      if ((this.letterIndex >= 0 && this.letterIndex <= this.letterCount) && (event.key == "Backspace")){
+      if ((this.letterIndex >= 0 && this.letterIndex <= this.letterCount) && (key == "Backspace" || key == "Back")){
         if (this.letterIndex > 0) this.letterIndex -= 1;
         this.words[this.wordIndex].letters[this.letterIndex].value = this.blank;
         this.words[this.wordIndex].letters[this.letterIndex].state = LetterStates.Empty;
       }
-      else if (event.key == "1"){
+      else if (key == "1"){
         this.answerDisplayed = this.answer;
       }
       else if (this.letterIndex <= this.letterCount - 1){    
         // if a-z or A-Z
-        if (event.keyCode >= 65 && event.keyCode <= 90){
-          this.words[this.wordIndex].letters[this.letterIndex].value = event.key.toUpperCase();
+        const alphaRegex = new RegExp('^[a-zA-Z]$');
+        if (alphaRegex.test(key)){
+          this.words[this.wordIndex].letters[this.letterIndex].value = key.toUpperCase();
           this.words[this.wordIndex].letters[this.letterIndex].state = LetterStates.BeforeCheck;
           this.letterIndex += 1;        
         }   
@@ -131,7 +138,7 @@ export class AppComponent implements OnInit {
       
       if ((this.letterIndex == this.letterCount) && 
         (this.wordIndex < this.wordCount) &&
-        (event.key == "Enter")){
+        (key == "Enter")){
           
         var wordState = await this.gameService.checkWord(this.words[this.wordIndex]);
         switch (wordState) {

@@ -1,7 +1,7 @@
 <div class="keyboard-base">
 
     <ng-container *ngFor="let item of keyMap | keyvalue: asIsOrder">
-        <div [ngClass]="getKeyboardStateClassName(item.value)">{{item.key}}</div>
+        <div [ngClass]="getKeyboardStateClassName(item.value)" (click)="onKeyClick(item.key)">{{item.key}}</div>
     </ng-container>  
 
 </div>

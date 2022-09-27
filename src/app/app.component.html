@@ -17,6 +17,6 @@
 
 <br>
 
-<app-keyboard #appkeyboard></app-keyboard>
+<app-keyboard #appkeyboard (onClickEvent)="onKeyboardClick($event)"></app-keyboard>
 
 <!-- <span *ngFor="let word of allWords">{{word}} </span> -->
