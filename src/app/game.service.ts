@@ -57,6 +57,7 @@ export class GameService {
     .query<any>({
       query: CHECK_WORD, 
       variables: { word },
+      fetchPolicy: "no-cache"
     })
 
     return result.data.checkWord;
