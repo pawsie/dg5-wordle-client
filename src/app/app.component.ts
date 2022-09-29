@@ -1,8 +1,10 @@
 import { Component, HostListener, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Apollo } from 'apollo-angular';
 import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { GameService, GameStatus } from './game.service';
 import { GET_ALL_WORDS } from './graphql/graphql.queries';
+import { HelpDialogComponent } from './help-dialog/help-dialog.component';
 import { KeyboardComponent, KeyStates } from './keyboard/keyboard.component';
 import { LetterStates } from './letter/letterModel';
 import { WordComponent } from './word/word.component';
@@ -30,8 +32,9 @@ export class AppComponent implements OnInit {
 
   constructor(private apollo: Apollo,
               game: GameService,
-              private toastrService: ToastrService) {
-
+              private toastrService: ToastrService,
+              private dialog: MatDialog) {
+               
     this.apollo.watchQuery({ query: GET_ALL_WORDS }).valueChanges
       .subscribe(({ data, error }: any) => {
           this.allWords = data.allWords;   
@@ -44,6 +47,13 @@ export class AppComponent implements OnInit {
     this.showStart();
 
 
+  }
+
+  openHelpDialog(): void {
+    this.dialog.open(HelpDialogComponent, {
+      width: '250px',      
+      hasBackdrop: true
+    });
   }
 
   ngOnInit() {
@@ -126,6 +136,9 @@ export class AppComponent implements OnInit {
       }
       else if (key == "1"){
         this.answerDisplayed = this.answer;
+      }
+      else if (key == "2"){        
+        this.openHelpDialog();
       }
       else if ((this.letterIndex <= this.letterCount - 1) && (this.wordIndex < this.wordCount)){
         // if a-z or A-Z

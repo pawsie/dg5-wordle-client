@@ -11,13 +11,17 @@ import { WordComponent } from './word/word.component';
 import { GameService } from './game.service';
 import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
 import { KeyboardComponent } from './keyboard/keyboard.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { HelpDialogComponent } from './help-dialog/help-dialog.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LetterComponent,
     WordComponent,
-    KeyboardComponent
+    KeyboardComponent,
+    HelpDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,6 +29,7 @@ import { KeyboardComponent } from './keyboard/keyboard.component';
     AppRoutingModule,
     GraphQLModule,
     HttpClientModule,
+    MatDialogModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-center',
       preventDuplicates: true      
