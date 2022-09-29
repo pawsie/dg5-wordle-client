@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
   answer!: string;
   answerDisplayed!: string;
   keyMap : any;
+  checkingWord: boolean = false;
 
   constructor(private apollo: Apollo,
               game: GameService,
@@ -116,7 +117,7 @@ export class AppComponent implements OnInit {
   }
 
   async onKey(key: string){
-    if (this.gameService.gameState == GameStatus.InProgress)
+    if (this.gameService.gameState == GameStatus.InProgress && !this.checkingWord)
     {
       if ((this.letterIndex >= 0 && this.letterIndex <= this.letterCount) && (key == "Backspace" || key == "Back")){
         if (this.letterIndex > 0) this.letterIndex -= 1;
@@ -126,7 +127,7 @@ export class AppComponent implements OnInit {
       else if (key == "1"){
         this.answerDisplayed = this.answer;
       }
-      else if (this.letterIndex <= this.letterCount - 1){    
+      else if ((this.letterIndex <= this.letterCount - 1) && (this.wordIndex < this.wordCount)){
         // if a-z or A-Z
         const alphaRegex = new RegExp('^[a-zA-Z]$');
         if (alphaRegex.test(key)){
@@ -139,21 +140,23 @@ export class AppComponent implements OnInit {
       if ((this.letterIndex == this.letterCount) && 
         (this.wordIndex < this.wordCount) &&
         (key == "Enter")){
-          
-        var wordState = await this.gameService.checkWord(this.words[this.wordIndex]);
-        switch (wordState) {
-          case WordState.Correct:
-            this.wordCorrect();
-            break;
-          case WordState.NotInList:
-            this.wordNotInList();
-            break;
-          case WordState.WrongButInList:
-            this.goToNextWord();        
-            break;
-        }
+                    
+          this.checkingWord = true;
 
+          var wordState = await this.gameService.checkWord(this.words[this.wordIndex]);
+          switch (wordState) {
+            case WordState.Correct:
+              await this.wordCorrect();
+              break;
+            case WordState.NotInList:
+              this.wordNotInList();
+              break;
+            case WordState.WrongButInList:
+              await this.goToNextWord();     
+              break;
+          }
 
+          this.checkingWord = false;          
       }  
     }
   }
