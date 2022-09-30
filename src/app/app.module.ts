@@ -12,6 +12,7 @@ import { GameService } from './game.service';
 import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
 import { KeyboardComponent } from './keyboard/keyboard.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { HelpDialogComponent } from './help-dialog/help-dialog.component';
 
 
@@ -30,6 +31,7 @@ import { HelpDialogComponent } from './help-dialog/help-dialog.component';
     GraphQLModule,
     HttpClientModule,
     MatDialogModule,
+    MatIconModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-center',
       preventDuplicates: true      
