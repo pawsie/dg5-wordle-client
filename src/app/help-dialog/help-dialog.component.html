@@ -3,9 +3,20 @@
 <h1 mat-dialog-title >HOW TO PLAY</h1>
 
 <div mat-dialog-content>
-  <p>Guess the hidden word in 6 tries.
+  <p>Guess the hidden word in 6 tries.<br><br>
 
-    Each guess must be a valid 5 letter word, you cannot enter random letters. Hit the enter button to submit the guess.
+    Each guess must be a valid 5 letter word, you cannot enter random letters. <br>
+    Hit the enter button to submit the guess.<br><br>
     
-    After your submission, the color of the tiles will change as in the examples below.</p>
+    After your submission, the color of the tiles will change as in the examples below.<br></p><hr>
+    <br>
+    <h2>Examples</h2>
+    <app-word [word]="wordGames"></app-word><br>
+    The letter <b>G</b> is in the word and in the correct spot.<br><br><br>
+
+    <app-word [word]="wordHotel"></app-word><br>
+    The letter <b>O</b> is in the word but in the wrong spot.<br><br><br>
+
+    <app-word [word]="wordClick"></app-word><br>
+    The letter <b>C</b> is not in the word in any spot.
 </div>

@@ -44,14 +44,13 @@ export class AppComponent implements OnInit {
     this.resetWords();
     this.gameService = game;
     
-    this.showStart();
-
+    // this.showStart();
+    this.openHelpDialog();
 
   }
 
   openHelpDialog(): void {
     this.dialog.open(HelpDialogComponent, {
-      width: '250px',      
       hasBackdrop: true
     });
   }
