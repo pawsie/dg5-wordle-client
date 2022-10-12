@@ -1,21 +1,23 @@
 <div aria-live="polite" toastContainer></div>
 <br><br><br><br>
+<br><br><br>
 <h1>My Wordle</h1>
+<br><br>
 
 <div *ngFor="let word of words">
   <app-word #appword [word]="word"></app-word>
 </div>
 
-<br>
+<br><br>
 
-<button (click)="resetGame()">Reset</button><br><br>
+<!-- <button (click)="resetGame()">Reset</button><br><br> -->
 
-<span>Press '1' for answer: {{answerDisplayed}}</span><br>
-<span>Word index: {{wordIndex}}</span><br>
+<p>Press '1' for answer: {{answerDisplayed}}</p><br>
+<!-- <span>Word index: {{wordIndex}}</span><br>
 <span>Letter index: {{letterIndex}}</span><br>
-<span>Game state: {{gameService.gameState}}</span><br>
+<span>Game state: {{gameService.gameState}}</span><br> -->
 
-<br>
+<br><br>
 
 <app-keyboard #appkeyboard (onClickEvent)="onKeyboardClick($event)"></app-keyboard>
 

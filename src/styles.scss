@@ -5,11 +5,7 @@
     src: local("HelveticaNeue"), url(./assets/fonts/helveticaneue/HelveticaNeueBd.ttf) format("truetype");
 }
 
-h1 {
-    font-family: "HelveticaNeue";
-    font-size: 50px;
-    text-align: center;
-}
+
 
 .toast-container{
     font-family: "Arial";
@@ -18,5 +14,5 @@ h1 {
 .toast-top-center {
     padding-top: 50px;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
