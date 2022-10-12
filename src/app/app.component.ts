@@ -44,8 +44,8 @@ export class AppComponent implements OnInit {
     this.resetWords();
     this.gameService = game;
     
-    // this.showStart();
-    this.openHelpDialog();
+    this.showStart();
+    // this.openHelpDialog();
 
   }
 
