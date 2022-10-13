@@ -44,15 +44,18 @@ export class AppComponent implements OnInit {
     this.resetWords();
     this.gameService = game;
     
-    this.showStart();
-    // this.openHelpDialog();
+    // this.showStart();
+    this.openHelpDialog();
 
   }
 
   openHelpDialog(): void {
     this.dialog.open(HelpDialogComponent, {
-      hasBackdrop: true
-    });
+      hasBackdrop: true,
+      disableClose: true
+    })
+    .afterClosed()
+    .subscribe(() => this.showStartClickedHandler());
   }
 
   ngOnInit() {
