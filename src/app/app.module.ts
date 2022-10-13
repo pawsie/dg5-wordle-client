@@ -13,6 +13,7 @@ import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
 import { KeyboardComponent } from './keyboard/keyboard.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { HelpDialogComponent } from './help-dialog/help-dialog.component';
 
 
@@ -32,6 +33,7 @@ import { HelpDialogComponent } from './help-dialog/help-dialog.component';
     HttpClientModule,
     MatDialogModule,
     MatIconModule,
+    MatToolbarModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-center',
       preventDuplicates: true      
