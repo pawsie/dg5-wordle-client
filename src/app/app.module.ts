@@ -14,7 +14,10 @@ import { KeyboardComponent } from './keyboard/keyboard.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HelpDialogComponent } from './help-dialog/help-dialog.component';
+import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
 
 
 @NgModule({
@@ -24,6 +27,7 @@ import { HelpDialogComponent } from './help-dialog/help-dialog.component';
     WordComponent,
     KeyboardComponent,
     HelpDialogComponent,
+    SettingsDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +38,8 @@ import { HelpDialogComponent } from './help-dialog/help-dialog.component';
     MatDialogModule,
     MatIconModule,
     MatToolbarModule,
+    MatDividerModule,
+    MatSlideToggleModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-center',
       preventDuplicates: true      

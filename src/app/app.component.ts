@@ -7,6 +7,7 @@ import { GET_ALL_WORDS } from './graphql/graphql.queries';
 import { HelpDialogComponent } from './help-dialog/help-dialog.component';
 import { KeyboardComponent, KeyStates } from './keyboard/keyboard.component';
 import { LetterStates } from './letter/letterModel';
+import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
 import { WordComponent } from './word/word.component';
 import { Word, WordState } from './word/wordModel';
 
@@ -46,7 +47,7 @@ export class AppComponent implements OnInit {
     
     // this.showStart();
     this.openHelpDialog();
-
+        // this.openSettingsDialog();
   }
 
   openHelpDialog(): void {
@@ -56,6 +57,12 @@ export class AppComponent implements OnInit {
     })
     .afterClosed()
     .subscribe(() => this.showStartClickedHandler());
+  }
+
+  openSettingsDialog(): void {
+    this.dialog.open(SettingsDialogComponent, {
+      hasBackdrop: true,  
+    })
   }
 
   ngOnInit() {
