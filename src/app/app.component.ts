@@ -53,7 +53,8 @@ export class AppComponent implements OnInit {
   openHelpDialog(): void {
     this.dialog.open(HelpDialogComponent, {
       hasBackdrop: true,
-      disableClose: true
+      disableClose: true,
+      position: { top: '90px' },
     })
     .afterClosed()
     .subscribe(() => this.showStartClickedHandler());
@@ -62,6 +63,7 @@ export class AppComponent implements OnInit {
   openSettingsDialog(): void {
     this.dialog.open(SettingsDialogComponent, {
       hasBackdrop: true,  
+      position: { top: '90px' },
     })
   }
 

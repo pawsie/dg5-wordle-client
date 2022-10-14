@@ -1,5 +1,13 @@
 .setting-item{
     margin-top: 10px;
     margin-bottom: 10px;
-    width: 300px;
+    width: 200px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.setting-label{
+    padding-top: 3px;
 }
