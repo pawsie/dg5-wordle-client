@@ -1,16 +1,17 @@
 <mat-toolbar color="primary">
 <mat-toolbar-row>
   <span class="example-spacer"></span>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
+  <mat-icon fontIcon="help" class="help-button" (click)="openHelpDialog()" ></mat-icon>
+
+  <h1>My Wordle</h1>
+  <span class="example-spacer"></span>
 </mat-toolbar-row>
 </mat-toolbar>
 
 <div aria-live="polite" toastContainer></div>
 <br><br><br><br>
 <br><br><br>
-<h1>My Wordle</h1>
+
 <br><br>
 
 <div *ngFor="let word of words">
