@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { LetterStates } from '../letter/letterModel';
 import { Word } from '../word/wordModel';
 
@@ -22,7 +22,17 @@ export class HelpDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initWords();    
+    // initialize to BeforeCheck so the flip animation will take place
+    for (var i = 0; i < 5; i++){
+      this.wordGames.letters[i].state = LetterStates.BeforeCheck;
+      this.wordHotel.letters[i].state = LetterStates.BeforeCheck;
+      this.wordClick.letters[i].state = LetterStates.BeforeCheck;
+    }
+  }
+
+  ngAfterViewInit(): void {
+    // set these after view init so that the flip animation will take place
+    this.initWords(); 
   }
 
   initWords() {
