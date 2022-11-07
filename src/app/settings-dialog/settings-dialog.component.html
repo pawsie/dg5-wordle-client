@@ -7,17 +7,20 @@
 <mat-divider></mat-divider>
 
 <div class="setting-item">
-  <span class="setting-label">Hard mode</span>
-  <mat-slide-toggle color="primary" class="setting-toggle" [(ngModel)]="settingsData.hardMode"></mat-slide-toggle>
+  <span class="setting-label">Show answer</span>
+  <mat-slide-toggle color="primary" class="setting-toggle" [(ngModel)]="settingsData.showAnswer"></mat-slide-toggle>
 </div>
 
 <mat-divider></mat-divider>
 
 <div class="setting-item">
-  <span class="setting-label">Show answer</span>
-  <mat-slide-toggle color="primary" class="setting-toggle" [(ngModel)]="settingsData.showAnswer"></mat-slide-toggle>
+  <span class="setting-label">Hard mode</span>
+  <mat-slide-toggle color="primary" class="setting-toggle" [(ngModel)]="settingsData.hardMode" (ngModelChange)="onHardModeChange()"></mat-slide-toggle>
 </div>
-
+<div class="warning-msg" *ngIf="hardModeChanged">
+  <mat-icon class="warning-icon" fontIcon="warning"></mat-icon>
+  <span class="warning-text">Changing the Hard Mode will restart your game.</span>
+</div>
 <mat-divider></mat-divider>
 
 <!-- empty. just to put some space -->

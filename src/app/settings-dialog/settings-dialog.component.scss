@@ -1,7 +1,6 @@
 .setting-item{
     margin-top: 10px;
     margin-bottom: 10px;
-    width: 200px;
 
     display: flex;
     flex-direction: row;
@@ -11,3 +10,15 @@
 .setting-label{
     padding-top: 3px;
 }
+
+.warning-msg{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.warning-icon{
+    padding-right: 5px;
+}
+

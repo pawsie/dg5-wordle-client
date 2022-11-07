@@ -31,6 +31,7 @@ export class AppComponent implements OnInit {
   keyMap : any;
   checkingWord: boolean = false;
   settings: SettingsData = { hardMode: false, showAnswer: false };
+  originalHardMode = this.settings.hardMode;
 
   constructor(private apollo: Apollo,
               game: GameService,
@@ -59,11 +60,22 @@ export class AppComponent implements OnInit {
   }
 
   openSettingsDialog(): void {
+    this.originalHardMode = this.settings.hardMode;
+
     this.dialog.open(SettingsDialogComponent, {
       hasBackdrop: true,  
       position: { top: '90px' },
+      width: '400px',
       data: this.settings
-    });
+    })
+    .afterClosed()
+    .subscribe(() => this.settingsDialogClosedHandler());
+  }
+
+  settingsDialogClosedHandler(){
+    if (this.originalHardMode != this.settings.hardMode){
+      this.resetGame();
+    }
   }
 
   ngOnInit() {
@@ -246,6 +258,9 @@ export class AppComponent implements OnInit {
     var result = await this.gameService.startGame();
     this.answer = result.startGame.gameWord;
 
+    if (this.settings.hardMode) this.wordCount = 4;
+    else this.wordCount = 6;
+  
     this.resetIndices();
     this.resetWords();
     this.resetKeyboard();
@@ -258,6 +273,7 @@ export class AppComponent implements OnInit {
   }
 
   resetWords(){
+    this.words = new Array(this.wordCount);
     for (var i = 0; i < this.wordCount; i++){
       this.words[i] = new Word();
     }
