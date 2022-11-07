@@ -7,7 +7,7 @@ import { GET_ALL_WORDS } from './graphql/graphql.queries';
 import { HelpDialogComponent } from './help-dialog/help-dialog.component';
 import { KeyboardComponent, KeyStates } from './keyboard/keyboard.component';
 import { LetterStates } from './letter/letterModel';
-import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
+import { SettingsData, SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
 import { WordComponent } from './word/word.component';
 import { Word, WordState } from './word/wordModel';
 
@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
   answerDisplayed!: string;
   keyMap : any;
   checkingWord: boolean = false;
+  settings: SettingsData = { hardMode: false, showAnswer: false };
 
   constructor(private apollo: Apollo,
               game: GameService,
@@ -45,9 +46,7 @@ export class AppComponent implements OnInit {
     this.resetWords();
     this.gameService = game;
     
-    // this.showStart();
     this.openHelpDialog();
-        // this.openSettingsDialog();
   }
 
   openHelpDialog(): void {
@@ -64,7 +63,8 @@ export class AppComponent implements OnInit {
     this.dialog.open(SettingsDialogComponent, {
       hasBackdrop: true,  
       position: { top: '90px' },
-    })
+      data: this.settings
+    });
   }
 
   ngOnInit() {
@@ -106,18 +106,18 @@ export class AppComponent implements OnInit {
     });
   }
 
-  showAnswer() {
+  showFinalAnswer() {
     this.toastrService.show(this.answer, '', {
       disableTimeOut: true,
       tapToDismiss: true,
       closeButton: false
     })
       .onTap
-      .subscribe(() => this.showAnswerClickedHandler());
+      .subscribe(() => this.showFinalAnswerClickedHandler());
   }
 
-  showAnswerClickedHandler() {
-    console.log('showAnswer clicked');
+  showFinalAnswerClickedHandler() {
+    console.log('showFinalAnswer clicked');
     this.resetGame();
   }
 
@@ -204,7 +204,7 @@ export class AppComponent implements OnInit {
 
     // didn't manage to guess after max tries
     if (this.wordIndex == this.wordCount){
-      this.showAnswer();
+      this.showFinalAnswer();
     }
   }
 

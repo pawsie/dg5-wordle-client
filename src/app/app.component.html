@@ -25,7 +25,7 @@
 
 <!-- <button (click)="resetGame()">Reset</button><br><br> -->
 
-<p>Press '1' for answer: {{answerDisplayed}}</p><br>
+<p *ngIf="settings.showAnswer">Press '1' for answer: {{answerDisplayed}}</p><br>
 <!-- <span>Word index: {{wordIndex}}</span><br>
 <span>Letter index: {{letterIndex}}</span><br>
 <span>Game state: {{gameService.gameState}}</span><br> -->

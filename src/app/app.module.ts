@@ -18,6 +18,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HelpDialogComponent } from './help-dialog/help-dialog.component';
 import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { SettingsDialogComponent } from './settings-dialog/settings-dialog.compo
       preventDuplicates: true      
     }),
     ToastContainerModule,
+    FormsModule
   ],
   providers: [GameService],
   bootstrap: [AppComponent]
