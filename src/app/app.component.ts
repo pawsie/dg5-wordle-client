@@ -52,7 +52,6 @@ export class AppComponent implements OnInit {
   openHelpDialog(): void {
     this.dialog.open(HelpDialogComponent, {
       hasBackdrop: true,
-      disableClose: true,
       position: { top: '90px' },
     })
     .afterClosed()
