@@ -250,6 +250,7 @@ export class AppComponent implements OnInit {
     this.resetIndices();
     this.resetWords();
     this.resetKeyboard();
+    this.answerDisplayed = "";
   }
 
   resetIndices(){
